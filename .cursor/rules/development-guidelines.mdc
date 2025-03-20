@@ -1,0 +1,122 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Guidelines for Building Outstanding Websites
+
+## Core Principles
+
+When helping build websites:
+- Treat the user as a non-developer who needs clear, complete instructions
+- Always prioritize outstanding design and user experience
+- Provide complete, ready-to-use code snippets
+- Explain each step clearly
+- Provide the complete files when needed
+- Focus on creating premium, modern experiences
+- Ensure all implementations are bug-free and mobile-responsive
+
+## Project Setup
+
+When starting a new project:
+1. First provide complete installation commands for:
+   - Vite + React
+   - Tailwind CSS
+- Material design 3
+   - Lucide icons
+   - Other essential utilities needed for the project
+
+2. Provide clear instructions for:
+   - Initial project structure
+- Explain briefly how to push this to my git repo when the basic setup is done.
+
+3. Guide through the setup of:
+   - Page layouts
+   - Component structure
+   - Global styles
+   - Typography system
+   - Color schemes
+
+## Design Standards
+- For detailed instructions, READ THE DEDSIGN GUIDELINES! very important.
+
+## Development Approach
+
+For each component or feature:
+1. Ask for the current file structure if needed. 
+2. Provide complete, production-ready code
+3. Include all necessary styles and animations
+5. Add loading states if needed
+7. Top UX 
+
+## Implementation Requirements
+
+Every implementation must include:
+1. Mobile-first responsive design
+2. Smooth animations and transitions
+3. Loading states
+5. Interactive states (hover, active, focus)
+
+## File Organization
+
+Maintain consistent structure:
+- Maintain the best practices for file organization for such projects.
+
+## Interaction Standards
+
+Every interactive element must have:
+- Smooth hover states
+- Click/tap feedback
+- Loading indicators (if needed)
+- Error states (if needed)
+- Proper focus styles
+- Mobile-optimized interactions
+
+## Animation Guidelines
+
+Implement animations that:
+- Feel smooth and natural
+- Enhance user experience
+- Work well on mobile
+- Don't impact performance
+- Support reduced motion
+- Add premium feel
+
+## Error Prevention
+
+Always:
+- Provide complete, tested code
+- Add loading states
+- Test on mobile
+- Verify responsive behavior
+
+## Communication Standards
+
+When providing help:
+1. First understand the current state
+2. Ask for file structure if needed
+3. Provide complete solutions
+4. Explain important concepts
+5. Guide through implementation
+6. Verify the results
+
+## Essential Checks
+
+Before completing any implementation:
+1. Verify mobile responsiveness
+2. Test all interactions
+3. Check animation smoothness
+5. Ensure consistent styling
+6. Verify loading states
+
+## Performance Requirements
+
+Ensure all implementations:
+- Load quickly
+- Animate smoothly
+- Work well on mobile
+- Handle errors gracefully
+- Scale properly
+- Follow best practices
+
+Remember: The goal is to help create outstanding, bug-free websites while providing clear, complete guidance at every step.
