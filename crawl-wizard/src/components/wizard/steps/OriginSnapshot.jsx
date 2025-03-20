@@ -74,7 +74,11 @@ const OriginSnapshot = () => {
     onToggle, 
     children 
   }) => (
-    <Card className="mb-4">
+    <Card 
+      className="mb-5" 
+      minimal={true}
+      elevation="none"
+    >
       <div 
         className="accordion-header"
         onClick={onToggle}
@@ -86,13 +90,13 @@ const OriginSnapshot = () => {
           <span className="accordion-title">{title}</span>
         </div>
         <ChevronDown 
-          size={20} 
+          size={18} 
           className={`accordion-chevron ${expanded ? 'transform rotate-180' : ''}`} 
         />
       </div>
       
       {expanded && (
-        <div className="accordion-content border-t border-gray-100 mt-3 pt-4 px-4">
+        <div className="accordion-content">
           {children}
         </div>
       )}

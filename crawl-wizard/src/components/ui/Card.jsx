@@ -15,6 +15,7 @@ const Card = ({
   collapsible = false,
   collapsed = false,
   onToggle,
+  minimal = false,
 }) => {
   const elevationMap = {
     'none': '',
@@ -23,7 +24,7 @@ const Card = ({
     'elevated': 'shadow-md-3',
   };
   
-  const borderClasses = noBorder ? '' : 'border border-gray-100';
+  const borderClasses = noBorder ? '' : minimal ? 'border-0' : 'border border-gray-100';
   const paddingClasses = noPadding ? '' : 'p-5';
   
   return (
@@ -33,6 +34,7 @@ const Card = ({
         ${elevationMap[elevation] || elevationMap.default} 
         ${borderClasses}
         transition-all duration-200 
+        ${minimal ? 'bg-transparent hover:bg-gray-50/40' : ''}
         ${className}
       `}
     >

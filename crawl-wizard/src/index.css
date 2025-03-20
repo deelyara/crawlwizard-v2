@@ -104,16 +104,16 @@
   }
   
   .form-input {
-    @apply w-full p-2.5 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none transition-all duration-200;
+    @apply w-full p-2.5 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none transition-all duration-200 bg-white/80 hover:bg-white;
   }
   
   .form-select {
-    @apply w-full p-2.5 pr-10 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none appearance-none bg-no-repeat bg-right transition-all duration-200;
+    @apply w-full p-2.5 pr-10 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none appearance-none bg-no-repeat bg-right transition-all duration-200 bg-white/80 hover:bg-white;
   }
   
   .form-checkbox, 
   .form-radio {
-    @apply h-4 w-4 text-md-primary border-2 border-gray-300 rounded focus:ring-2 focus:ring-offset-0 focus:ring-primary-100 focus:border-md-primary transition-all duration-200;
+    @apply h-4 w-4 text-md-primary border-2 border-gray-300 rounded focus:ring-1 focus:ring-offset-0 focus:ring-primary-100 focus:border-md-primary transition-all duration-200;
   }
   
   .form-radio {
@@ -161,27 +161,40 @@
   
   /* Accordion */
   .accordion-header {
-    @apply flex items-center justify-between py-3 px-4 cursor-pointer transition-colors duration-200 hover:bg-gray-50 rounded-md;
+    @apply flex items-center justify-between py-3.5 px-4 cursor-pointer transition-all duration-200 hover:bg-gray-50/60 rounded-lg;
   }
   
-  .accordion-icon-container {
-    @apply flex-shrink-0 h-9 w-9 rounded-full bg-blue-50 flex items-center justify-center mr-3;
+  .accordion-header:hover .accordion-icon-container {
+    @apply opacity-100 transform scale-110;
   }
   
-  .accordion-icon {
+  .accordion-header:hover .accordion-title {
     @apply text-md-primary;
   }
   
+  .accordion-icon-container {
+    @apply flex-shrink-0 mr-3 text-md-primary opacity-80 transition-all duration-200;
+  }
+  
   .accordion-title {
-    @apply text-lg font-medium;
+    @apply text-base font-medium text-gray-800 transition-colors duration-200;
   }
   
   .accordion-chevron {
-    @apply text-gray-400 transition-transform duration-300;
+    @apply text-gray-400 transition-transform duration-300 ease-in-out;
+  }
+  
+  .accordion-header:hover .accordion-chevron {
+    @apply text-md-primary;
   }
   
   .accordion-content {
-    @apply transition-all duration-300 overflow-hidden;
+    @apply transition-all duration-300 overflow-hidden px-4 pt-2 pb-4;
+  }
+  
+  .accordion-content::before {
+    content: '';
+    @apply block w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-2 opacity-70;
   }
   
   /* Step content container */
