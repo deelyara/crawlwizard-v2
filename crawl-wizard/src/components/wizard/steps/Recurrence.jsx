@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useWizard } from '../../../context/WizardContext';
+import { Clock, AlertCircle, ChevronDown, Settings } from 'lucide-react';
+import Tooltip from '../../ui/Tooltip';
+import Card from '../../ui/Card';
 
 const Recurrence = () => {
   const { wizardData, updateWizardData } = useWizard();
@@ -7,6 +10,7 @@ const Recurrence = () => {
   const [frequency, setFrequency] = useState('weekly');
   const [customValue, setCustomValue] = useState('100');
   const [useDifferentSnapshot, setUseDifferentSnapshot] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   
   const handleFrequencyChange = (value) => {
     setFrequency(value);
@@ -18,6 +22,10 @@ const Recurrence = () => {
   
   const toggleUseDifferentSnapshot = () => {
     setUseDifferentSnapshot(!useDifferentSnapshot);
+  };
+  
+  const toggleAdvanced = () => {
+    setShowAdvanced(!showAdvanced);
   };
   
   const handleSave = () => {
@@ -36,19 +44,51 @@ const Recurrence = () => {
     handleSave();
   };
   
+  const AccordionSection = ({ 
+    title, 
+    icon, 
+    expanded, 
+    onToggle, 
+    children 
+  }) => (
+    <Card className="mb-4">
+      <div 
+        className="accordion-header"
+        onClick={onToggle}
+      >
+        <div className="flex items-center">
+          <div className="accordion-icon-container">
+            {icon}
+          </div>
+          <span className="accordion-title">{title}</span>
+        </div>
+        <ChevronDown 
+          size={20} 
+          className={`accordion-chevron ${expanded ? 'transform rotate-180' : ''}`} 
+        />
+      </div>
+      
+      {expanded && (
+        <div className="accordion-content border-t border-gray-100 mt-3 pt-4 px-4">
+          {children}
+        </div>
+      )}
+    </Card>
+  );
+  
   return (
     <div onBlur={handleBlur}>
-      <h2 className="text-xl font-medium mb-4">Set recurring crawl</h2>
-      <p className="text-gray-600 mb-6">
+      <h2 className="section-header">Set recurring crawl</h2>
+      <p className="section-description">
         Configure recurring crawls to automatically extract new content at specified intervals.
       </p>
       
-      {/* Frequency selector */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-3">
-          Crawl frequency
-        </label>
-        
+      <AccordionSection
+        title="Crawl frequency"
+        icon={<Clock size={20} className="accordion-icon" />}
+        expanded={true}
+        onToggle={() => {}}
+      >
         <div className="space-y-3">
           <div className="flex items-center">
             <input
@@ -58,7 +98,7 @@ const Recurrence = () => {
               value="no-recurrence"
               checked={frequency === 'no-recurrence'}
               onChange={() => handleFrequencyChange('no-recurrence')}
-              className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300"
+              className="form-radio"
             />
             <label htmlFor="no-recurrence" className="ml-2 text-sm">
               No recurring crawls
@@ -73,7 +113,7 @@ const Recurrence = () => {
               value="daily"
               checked={frequency === 'daily'}
               onChange={() => handleFrequencyChange('daily')}
-              className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300"
+              className="form-radio"
             />
             <label htmlFor="daily" className="ml-2 text-sm">
               Daily
@@ -88,7 +128,7 @@ const Recurrence = () => {
               value="weekly"
               checked={frequency === 'weekly'}
               onChange={() => handleFrequencyChange('weekly')}
-              className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300"
+              className="form-radio"
             />
             <label htmlFor="weekly" className="ml-2 text-sm">
               Weekly
@@ -103,7 +143,7 @@ const Recurrence = () => {
               value="monthly"
               checked={frequency === 'monthly'}
               onChange={() => handleFrequencyChange('monthly')}
-              className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300"
+              className="form-radio"
             />
             <label htmlFor="monthly" className="ml-2 text-sm">
               Monthly
@@ -118,7 +158,7 @@ const Recurrence = () => {
               value="custom"
               checked={frequency === 'custom'}
               onChange={() => handleFrequencyChange('custom')}
-              className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300"
+              className="form-radio"
             />
             <label htmlFor="custom" className="ml-2 text-sm">
               Custom...
@@ -129,34 +169,49 @@ const Recurrence = () => {
                 type="text"
                 value={customValue}
                 onChange={handleCustomValueChange}
-                className="ml-3 w-16 p-1 rounded-md border border-gray-300 shadow-sm"
+                className="ml-3 w-24 p-2 rounded-md border border-gray-200 shadow-sm focus:ring-2 focus:ring-primary-100 focus:border-md-primary transition-all duration-200"
                 aria-label="Custom frequency value"
               />
             )}
           </div>
         </div>
-      </div>
+      </AccordionSection>
       
       {frequency !== 'no-recurrence' && (
         <>
-          <div className="mb-4 text-sm text-gray-600">
-            The crawl is going to start ~March 27, 2025 00:00:00
-          </div>
-          
-          <div className="mb-6">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="different-snapshot"
-                checked={useDifferentSnapshot}
-                onChange={toggleUseDifferentSnapshot}
-                className="h-4 w-4 text-md-primary focus:ring-md-primary border-gray-300 rounded"
-              />
-              <label htmlFor="different-snapshot" className="ml-2 block text-sm text-gray-700">
-                Use a different origin (source) snapshot for every crawl
-              </label>
+          <div className="info-alert">
+            <div className="info-alert-icon">
+              <AlertCircle size={16} />
+            </div>
+            <div className="info-alert-content">
+              The crawl is scheduled to start ~March 27, 2025 00:00:00
             </div>
           </div>
+          
+          <AccordionSection
+            title="Advanced settings"
+            icon={<Settings size={20} className="accordion-icon" />}
+            expanded={showAdvanced}
+            onToggle={toggleAdvanced}
+          >
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="different-snapshot"
+                  checked={useDifferentSnapshot}
+                  onChange={toggleUseDifferentSnapshot}
+                  className="form-checkbox"
+                />
+                <div className="ml-2 flex items-center">
+                  <label htmlFor="different-snapshot" className="block text-sm text-gray-700">
+                    Use a different origin (source) snapshot for every crawl
+                  </label>
+                  <Tooltip text="This option helps track changes over time by creating a new snapshot for each recurring crawl" />
+                </div>
+              </div>
+            </div>
+          </AccordionSection>
         </>
       )}
     </div>

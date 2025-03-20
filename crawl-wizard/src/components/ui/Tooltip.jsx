@@ -8,9 +8,11 @@ const Tooltip = ({
   className = '',
   iconClassName = '',
   tooltipClassName = '',
+  delay = 300,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const tooltipRef = useRef(null);
+  const timeoutRef = useRef(null);
   
   const positionClasses = {
     top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
@@ -26,6 +28,18 @@ const Tooltip = ({
     right: 'left-[-6px] top-1/2 transform -translate-y-1/2 border-t-transparent border-b-transparent border-l-transparent',
   };
   
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+  };
+  
+  const handleMouseLeave = () => {
+    clearTimeout(timeoutRef.current);
+    setIsVisible(false);
+  };
+  
   // Handle click outside to close tooltip
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,6 +51,7 @@ const Tooltip = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      clearTimeout(timeoutRef.current);
     };
   }, []);
   
@@ -45,14 +60,14 @@ const Tooltip = ({
     return (
       <div className={`relative inline-block ${className}`} ref={tooltipRef}>
         <div
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {children}
         </div>
         
         {isVisible && (
-          <div className={`absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded shadow-lg ${positionClasses[position]} ${tooltipClassName}`}>
+          <div className={`absolute z-50 w-64 p-2.5 text-sm text-white bg-gray-800 rounded-md shadow-md-2 transition-opacity duration-200 opacity-100 ${positionClasses[position]} ${tooltipClassName}`}>
             {text}
             <div className={`absolute w-0 h-0 border-4 border-gray-800 ${arrowClasses[position]}`} />
           </div>
@@ -66,14 +81,14 @@ const Tooltip = ({
     <div className={`relative inline-block ${className}`} ref={tooltipRef}>
       <div
         className={`information-tooltip ${iconClassName}`}
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <Info size={14} />
+        <Info size={16} className="text-md-primary" />
       </div>
       
       {isVisible && (
-        <div className={`absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded shadow-lg ${positionClasses[position]} ${tooltipClassName}`}>
+        <div className={`absolute z-50 w-64 p-2.5 text-sm text-white bg-gray-800 rounded-md shadow-md-2 transition-opacity duration-200 opacity-100 ${positionClasses[position]} ${tooltipClassName}`}>
           {text}
           <div className={`absolute w-0 h-0 border-4 border-gray-800 ${arrowClasses[position]}`} />
         </div>

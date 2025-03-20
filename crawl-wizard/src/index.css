@@ -6,84 +6,227 @@
 
 @layer base {
   body {
-    @apply font-sans bg-md-background text-md-on-surface;
+    @apply font-sans bg-gray-50 text-md-on-surface;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium;
+    @apply font-medium text-md-on-surface;
   }
 }
 
 @layer components {
+  /* Button styles */
   .btn {
-    @apply px-4 py-2 rounded-md font-medium transition-colors duration-200;
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-200 focus:outline-none shadow-md-button hover:shadow-md-button-hover relative overflow-hidden;
   }
   
   .btn-primary {
-    @apply bg-md-primary text-md-on-primary hover:bg-primary-700;
+    @apply bg-md-primary text-md-on-primary hover:bg-primary-600 focus:ring-2 focus:ring-primary-100 focus:ring-offset-1;
   }
   
   .btn-secondary {
-    @apply bg-md-secondary text-md-on-secondary hover:bg-blue-100;
+    @apply bg-md-secondary text-md-on-secondary hover:bg-blue-100 focus:ring-2 focus:ring-blue-100 focus:ring-offset-1;
   }
   
+  .btn-outlined {
+    @apply border border-gray-200 text-md-primary bg-white hover:bg-gray-50 focus:ring-2 focus:ring-primary-100 focus:ring-offset-1;
+  }
+  
+  .btn-text {
+    @apply bg-transparent text-md-primary hover:bg-gray-100 shadow-none hover:shadow-none;
+  }
+  
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none hover:shadow-none;
+  }
+  
+  /* Card style */
   .card {
-    @apply bg-white rounded-lg shadow-md border border-md-outline p-4;
+    @apply bg-white rounded-md shadow-md-card hover:shadow-md-card-hover border border-gray-100 p-5 transition-all duration-200;
   }
   
+  /* Wizard step indicator */
   .wizard-step {
-    @apply flex items-center space-x-4;
+    @apply flex items-center space-x-3;
   }
   
   .wizard-step-number {
-    @apply w-8 h-8 rounded-full flex items-center justify-center text-md-on-primary font-medium;
+    @apply w-7 h-7 rounded-full flex items-center justify-center text-white font-medium transition-all duration-200 text-sm;
   }
   
   .wizard-step-number.active {
-    @apply bg-md-primary;
+    @apply bg-md-primary shadow-md-1 ring-4 ring-blue-50;
   }
   
   .wizard-step-number.completed {
-    @apply bg-green-500;
+    @apply bg-md-success;
   }
   
   .wizard-step-number.inactive {
-    @apply bg-gray-300 text-gray-600;
+    @apply bg-gray-200 text-gray-500;
   }
   
   .wizard-step-label {
-    @apply text-sm font-medium;
+    @apply text-sm font-medium transition-colors duration-200;
   }
   
   .wizard-step-label.active {
-    @apply text-md-primary;
+    @apply text-md-primary font-medium;
   }
   
   .wizard-step-label.completed {
-    @apply text-green-500;
+    @apply text-md-success;
   }
   
   .wizard-step-label.inactive {
     @apply text-gray-500;
   }
   
-  .wizard-content {
-    @apply p-6 bg-white rounded-lg shadow-md mt-6;
+  .wizard-step-line {
+    @apply absolute left-3.5 h-full w-0.5 -z-10 top-0 bg-gray-100;
   }
   
+  .wizard-step-container {
+    @apply relative flex items-center cursor-pointer py-2 pl-2 pr-4 rounded-md hover:bg-gray-100 transition-colors duration-200;
+  }
+  
+  .wizard-step-container.active {
+    @apply bg-gray-100;
+  }
+  
+  /* Form elements */
+  .form-control {
+    @apply mb-5;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium mb-1.5 text-gray-700;
+  }
+  
+  .form-input {
+    @apply w-full p-2.5 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none transition-all duration-200;
+  }
+  
+  .form-select {
+    @apply w-full p-2.5 pr-10 border border-gray-200 rounded-md focus:ring-2 focus:ring-primary-100 focus:border-md-primary focus:outline-none appearance-none bg-no-repeat bg-right transition-all duration-200;
+  }
+  
+  .form-checkbox, 
+  .form-radio {
+    @apply h-4 w-4 text-md-primary border-2 border-gray-300 rounded focus:ring-2 focus:ring-offset-0 focus:ring-primary-100 focus:border-md-primary transition-all duration-200;
+  }
+  
+  .form-radio {
+    @apply rounded-full;
+  }
+  
+  .form-section {
+    @apply border border-gray-100 rounded-md p-5 mb-5 transition-all duration-200 hover:shadow-md-1 bg-white;
+  }
+  
+  /* Radio button */
   .radio-button {
-    @apply flex items-start p-4 border border-md-outline rounded-lg mb-4 cursor-pointer transition-colors duration-200;
+    @apply flex items-start p-4 border border-gray-200 rounded-md mb-3 cursor-pointer transition-all duration-200 hover:border-md-primary hover:bg-blue-50;
   }
   
   .radio-button:hover {
-    @apply bg-blue-50;
+    @apply shadow-md-card;
   }
   
   .radio-button.active {
-    @apply border-2 border-md-primary bg-blue-50;
+    @apply border border-md-primary bg-blue-50;
   }
   
+  /* Information tooltip */
   .information-tooltip {
-    @apply inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 text-xs ml-2 cursor-help;
+    @apply inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-100 text-gray-400 text-xs ml-1.5 cursor-help transition-colors duration-200 hover:bg-gray-200 hover:text-gray-600;
+  }
+  
+  /* Advanced settings accordion */
+  .advanced-settings-header {
+    @apply flex items-center cursor-pointer py-2 px-2 rounded-md text-md-primary hover:bg-gray-100 transition-colors duration-200;
+  }
+  
+  .advanced-settings-icon {
+    @apply mr-2 h-5 w-5;
+  }
+  
+  .advanced-settings-title {
+    @apply text-sm font-medium;
+  }
+  
+  .advanced-settings-content {
+    @apply pt-3 pl-9 transition-all duration-300;
+  }
+  
+  /* Accordion */
+  .accordion-header {
+    @apply flex items-center justify-between py-3 px-4 cursor-pointer transition-colors duration-200 hover:bg-gray-50 rounded-md;
+  }
+  
+  .accordion-icon-container {
+    @apply flex-shrink-0 h-9 w-9 rounded-full bg-blue-50 flex items-center justify-center mr-3;
+  }
+  
+  .accordion-icon {
+    @apply text-md-primary;
+  }
+  
+  .accordion-title {
+    @apply text-lg font-medium;
+  }
+  
+  .accordion-chevron {
+    @apply text-gray-400 transition-transform duration-300;
+  }
+  
+  .accordion-content {
+    @apply transition-all duration-300 overflow-hidden;
+  }
+  
+  /* Step content container */
+  .step-content {
+    @apply animate-[fadeIn_0.3s_ease-in-out];
+  }
+  
+  /* Section headers */
+  .section-header {
+    @apply text-xl font-medium mb-2 text-md-on-surface;
+  }
+  
+  .section-description {
+    @apply text-gray-600 mb-6;
+  }
+  
+  /* Info alert */
+  .info-alert {
+    @apply p-4 bg-blue-50 border border-blue-100 rounded-md flex items-start gap-3 mb-5;
+  }
+  
+  .info-alert-icon {
+    @apply flex-shrink-0 mt-0.5 text-blue-500;
+  }
+  
+  .info-alert-content {
+    @apply text-sm text-blue-700;
+  }
+  
+  /* Warning alert */
+  .warning-alert {
+    @apply p-4 bg-yellow-50 border border-yellow-100 rounded-md flex items-start gap-3 mb-5;
+  }
+  
+  .warning-alert-icon {
+    @apply flex-shrink-0 mt-0.5 text-yellow-500;
+  }
+  
+  .warning-alert-content {
+    @apply text-sm text-yellow-700;
+  }
+  
+  /* Animation utilities */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

@@ -7,7 +7,7 @@ import OriginSnapshot from './steps/OriginSnapshot';
 import Recurrence from './steps/Recurrence';
 import FineTune from './steps/FineTune';
 import Review from './steps/Review';
-import { X } from 'lucide-react';
+import { X, ArrowLeft, ArrowRight, Play } from 'lucide-react';
 
 const WizardLayout = () => {
   const { currentStep, prevStep, nextStep } = useWizard();
@@ -34,43 +34,53 @@ const WizardLayout = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md-2 overflow-hidden">
+    <div className="bg-white rounded-md shadow-md-card overflow-hidden border border-gray-100">
       {/* Header */}
-      <div className="flex justify-between items-center p-5 border-b border-md-outline">
-        <h1 className="text-xl font-medium">Crawl wizard</h1>
-        <button className="text-gray-500 hover:text-gray-700">
-          <X size={24} />
+      <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-white">
+        <h1 className="text-2xl font-medium text-md-on-surface">Crawl wizard</h1>
+        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+          <X size={20} />
         </button>
       </div>
       
       {/* Content area with sidebar and main content */}
-      <div className="flex">
+      <div className="flex min-h-[500px]">
         {/* Sidebar with step indicators */}
-        <div className="w-64 bg-gray-50 py-6 border-r border-md-outline">
+        <div className="w-72 bg-gray-50 py-6 border-r border-gray-100">
           <StepIndicator />
         </div>
         
         {/* Main content area */}
-        <div className="flex-1 p-6">
-          {renderStepContent()}
+        <div className="flex-1 p-8 bg-white overflow-y-auto">
+          <div className="step-content max-w-3xl">
+            {renderStepContent()}
+          </div>
         </div>
       </div>
       
       {/* Footer with navigation buttons */}
-      <div className="flex justify-between p-5 border-t border-md-outline bg-gray-50">
+      <div className="flex justify-between p-6 border-t border-gray-100 bg-gray-50">
         <button 
           onClick={prevStep} 
-          className="btn btn-secondary"
+          className="btn btn-outlined flex items-center gap-2"
           disabled={currentStep === STEPS.SELECT_TYPE}
         >
-          Back
+          <ArrowLeft size={18} /> Back
         </button>
         
         <button 
           onClick={nextStep} 
-          className={`btn ${currentStep === STEPS.REVIEW ? 'bg-green-600 hover:bg-green-700 text-white' : 'btn-primary'}`}
+          className={`btn flex items-center gap-2 ${
+            currentStep === STEPS.REVIEW 
+              ? 'bg-md-success text-md-on-success hover:bg-green-700 focus:ring-green-100' 
+              : 'btn-primary'
+          }`}
         >
-          {currentStep === STEPS.REVIEW ? 'Start crawl' : 'Next'}
+          {currentStep === STEPS.REVIEW ? (
+            <>Start crawl <Play size={18} /></>
+          ) : (
+            <>Next <ArrowRight size={18} /></>
+          )}
         </button>
       </div>
     </div>
